@@ -6,7 +6,7 @@ module.exports = {
   all: (req, res) => {
     Music
       .find({
-        user: req.currentUser._id
+        user: req.user._id
       })
       .then(musics => {
         if (!musics.length) {
@@ -14,15 +14,12 @@ module.exports = {
             msg: 'There is no music found, please upload a new one'
           })
         } else {
-          res.status(200).json({
-            Musics: musics
-          })
+          res.status(200).json(music)
         }
       })
       .catch(err => {
         res.status(500).json({
-          msg: 'Internal Server Error',
-          Error: err
+          msg: err.message
         })
       })
   },
@@ -32,6 +29,7 @@ module.exports = {
       .then(data => {
         let input = {
           title: req.body.title,
+          artist: req.body.artist,
           url: req.body.url,
           img_url: data,
           user: req.user._id
@@ -41,10 +39,7 @@ module.exports = {
           .create(input)
       })
       .then(music => {
-        res.status(201).json({
-          msg: 'New Music has been uploaded',
-          Music: music
-        })
+        res.status(201).json(music)
       })
       .catch(err => {
         res.status(500).json({
@@ -58,18 +53,16 @@ module.exports = {
   update: (req, res) => {
     let input = {
       title: req.body.title,
+      artist: req.body.artist,
       url: req.body.url,
-      img_url: req.body.img_url,
+      img_url: data,
       user: req.user._id
     }
 
     Music
       .findByIdAndUpdate({ _id: req.params.id }, input, { new: true })
       .then(music => {
-        res.status(201).json({
-          msg: 'Music has been updated',
-          Music: music
-        })
+        res.status(200).json(music)
       })
       .catch(err => {
         res.status(500).json({
@@ -85,6 +78,7 @@ module.exports = {
       .then(() => {
         res.status(200).json({
           msg: 'Music has been deleted',
+          id: req.params.id
         })
       })
       .catch(err => {
