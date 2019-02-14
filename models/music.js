@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { getImage } = require('../helpers/getImage')
 const Schema = mongoose.Schema
 
 const musicSchema = new Schema({

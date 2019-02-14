@@ -1,4 +1,5 @@
 const Music = require('../models/music')
+const { getImage } = require('../helpers/getImage')
 
 module.exports = {
 
@@ -27,19 +28,22 @@ module.exports = {
   },
 
   create: (req, res) => {
-    let input = {
-      title: req.body.title,
-      url: req.body.url,
-      img_url: req.body.img_url,
-      user: req.body.user//req.currentUser._id
-    }
+    getImage(req.body.title)
+      .then(data => {
+        let input = {
+          title: req.body.title,
+          url: req.body.url,
+          img_url: data,
+          user: req.user._id
+        }
 
-    Music
-      .create(input)
+        return Music
+          .create(input)
+      })
       .then(music => {
         res.status(201).json({
           msg: 'New Music has been uploaded',
-          Task: music
+          Music: music
         })
       })
       .catch(err => {
@@ -48,6 +52,7 @@ module.exports = {
           Error: err
         })
       })
+
   },
 
   update: (req, res) => {
@@ -55,7 +60,7 @@ module.exports = {
       title: req.body.title,
       url: req.body.url,
       img_url: req.body.img_url,
-      user: req.currentUser._id
+      user: req.user._id
     }
 
     Music
