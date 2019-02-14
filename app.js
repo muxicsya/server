@@ -8,9 +8,9 @@ var logger = require('morgan');
 var cors = require('cors')
 const mongoose = require('mongoose')
 
-// var indexRouter = require('./routes/index');
-// var usersRouter = require('./routes/users');
-// var musicRouter = require('./routes/music')
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var musicRouter = require('./routes/music');
 var lyricsRouter = require('./routes/lyrics');
 var DB = process.env.DB || 'musicx'
 
