@@ -2,14 +2,14 @@ const axios = require('axios');
 
 module.exports = {
   getLyrics: function (req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     axios({
       method: "GET",
       url: `https://api.lyrics.ovh/v1/${req.body.artist}/${req.body.title}`
     })
       .then((lyrics) => {
         const formatLyrics = lyrics.data.lyrics.replace(/\n/g, '<br>');
-        console.log(formatLyrics);
+        // console.log(lyric);
         if (lyrics) {
           res.status(200).json({ lyric: formatLyrics });
 
