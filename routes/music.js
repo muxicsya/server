@@ -1,5 +1,10 @@
-var express = require('express');
-var router = express.Router();
 
+const router = require('express').Router()
+const MusicController = require('../controllers/musicController')
 
-module.exports = router;
+router.get('/', MusicController.all)
+router.post('/', MusicController.create)
+router.put('/:id', MusicController.update)
+router.delete('/:id', MusicController.delete)
+
+module.exports = router
