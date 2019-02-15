@@ -5,19 +5,18 @@ module.exports = {
 
   all: (req, res) => {
     Music
-      .find({
-        user: req.user._id
-      })
+      .find({})
       .then(musics => {
-        if (!musics.length) {
-          res.status(404).json({
-            msg: 'There is no music found, please upload a new one'
-          })
-        } else {
-          res.status(200).json(music)
-        }
+        // if (!musics.length) {
+        //   res.status(404).json({
+        //     msg: 'There is no music found, please upload a new one'
+        //   })
+        // } else {
+          res.status(200).json(musics)
+        // }
       })
       .catch(err => {
+        console.log(err)
         res.status(500).json({
           msg: err.message
         })
@@ -25,18 +24,16 @@ module.exports = {
   },
 
   create: (req, res) => {
-    // console.log(req.user)
     getImage(req.body.title)
       .then(data => {
         
         let input = {
           title: req.body.title,
           artist: req.body.artist,
-          url: req.body.url,
+          url: req.file.cloudStoragePublicUrl,
           img_url: data,
           user: req.user._id
         }
-        // console.log(input)
 
         return Music
           .create(input)
@@ -57,7 +54,7 @@ module.exports = {
     let input = {
       title: req.body.title,
       artist: req.body.artist,
-      url: req.body.url,
+      url: req.file.cloudStoragePublicUrl,
       img_url: data,
       user: req.user._id
     }

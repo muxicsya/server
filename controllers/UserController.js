@@ -49,7 +49,6 @@ class UserController {
         } else {
           if (compare(req.body.password, user.password)) {
             var payload = {
-              userRole: user.userRole,
               email: user.email,
               _id: user._id
             }
@@ -58,7 +57,8 @@ class UserController {
               .status(200)
               .json({
                 msg: "signin success",
-                token: jwtSign(payload)
+                token: jwtSign(payload),
+                data: user
               })
           } else {
             res
@@ -69,6 +69,11 @@ class UserController {
           }
         }
       })
+  }
+
+  static getOne (req, res) {
+    console.log('===========', req.user)
+    res.status(200).json(req.user)
   }
 }
 

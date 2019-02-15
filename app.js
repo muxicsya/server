@@ -8,15 +8,9 @@ var logger = require('morgan');
 var cors = require('cors')
 const mongoose = require('mongoose')
 
-<<<<<<< HEAD
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var musicRouter = require('./routes/music');
-=======
-// var indexRouter = require('./routes/index');
-// var usersRouter = require('./routes/users');
-// var musicRouter = require('./routes/music')
->>>>>>> 6b98543bae79ff5960d48168583578a0d93e23e0
 var lyricsRouter = require('./routes/lyrics');
 var DB = process.env.DB || 'musicx'
 
@@ -34,16 +28,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-<<<<<<< HEAD
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/musics', musicRouter)
-=======
-// app.use('/', indexRouter);
-// app.use('/users', usersRouter);
-// app.use('/music', musicRouter);
->>>>>>> 6b98543bae79ff5960d48168583578a0d93e23e0
 app.use('/lyric', lyricsRouter);
 
 // catch 404 and forward to error handler
