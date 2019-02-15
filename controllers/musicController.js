@@ -25,8 +25,10 @@ module.exports = {
   },
 
   create: (req, res) => {
+    // console.log(req.user)
     getImage(req.body.title)
       .then(data => {
+        
         let input = {
           title: req.body.title,
           artist: req.body.artist,
@@ -34,6 +36,7 @@ module.exports = {
           img_url: data,
           user: req.user._id
         }
+        // console.log(input)
 
         return Music
           .create(input)
