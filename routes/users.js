@@ -1,10 +1,8 @@
 var express = require('express');
 var router = express.Router();
+const isLogin = require('../middlewares/isLogin')
+const UserController = require('../controllers/UserController')
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
-
+router.get('/', isLogin, UserController.getOne)
 
 module.exports = router;

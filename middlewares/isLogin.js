@@ -4,7 +4,6 @@ const User = require('../models/User')
 function islogin(req, res, next) {
   try {
     if (!req.headers.token) {
-      console.log("you have to login first")
       res
         .status(400)
         .json({
@@ -18,7 +17,6 @@ function islogin(req, res, next) {
         })
         .then(user => {
           if (!user) {
-            console.log("email/password not found")
             res
               .status(404)
               .json({
@@ -35,7 +33,7 @@ function islogin(req, res, next) {
     res
       .status(500)
       .json({
-        msg: "internal server error on middleware",
+        msg: "Invalid token",
         error
       })
   }
